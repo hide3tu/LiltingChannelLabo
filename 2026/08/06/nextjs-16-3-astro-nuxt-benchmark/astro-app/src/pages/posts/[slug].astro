@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getPosts } from '../../lib/posts.js';
+
+export function getStaticPaths() {
+  return getPosts().map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+<Layout title={post.title}>
+  <article class="post">
+    <h1>{post.title}</h1>
+    <time datetime={post.date}>{post.date}</time>
+    <div class="body">
+      {post.body.map((para) => <p>{para}</p>)}
+    </div>
+    <a href="/" class="back-link">← 一覧へ戻る</a>
+  </article>
+</Layout>

@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.astro/
+.nuxt/
+.output/
+dist/
+.DS_Store
+log-*.txt

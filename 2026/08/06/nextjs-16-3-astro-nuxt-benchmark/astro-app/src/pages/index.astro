@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPosts } from '../lib/posts.js';
+const posts = getPosts();
+---
+<Layout title="FW Compare Blog">
+  <section class="hero">
+    <h1>比較用サンプルブログ</h1>
+    <p>同じデザインをNext.js / Astro / Nuxtで組んで計測する。</p>
+  </section>
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li class="post-card">
+        <a href={`/posts/${post.slug}`}>{post.title}</a>
+        <time datetime={post.date}>{post.date}</time>
+        <p>{post.excerpt}</p>
+      </li>
+    ))}
+  </ul>
+</Layout>

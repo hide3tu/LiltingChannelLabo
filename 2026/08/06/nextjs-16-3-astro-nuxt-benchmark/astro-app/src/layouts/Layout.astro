@@ -1,0 +1,22 @@
+---
+import '../styles/style.css';
+const { title } = Astro.props;
+---
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Framework comparison sample blog" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="logo">FW Compare</a>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">Built for framework comparison</footer>
+  </body>
+</html>
