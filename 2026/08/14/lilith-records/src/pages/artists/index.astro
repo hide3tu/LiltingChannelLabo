@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { artists } from '../../data/artists';
+---
+
+<BaseLayout
+  title="Artists"
+  description="Lilith-4のメンバー紹介。"
+  breadcrumbs={[{ name: 'Artists', url: '/artists/' }]}
+  schemaType="MusicGroup"
+  schemaData={{
+    name: 'Lilith-4',
+    genre: 'Idol',
+    member: artists.map((a) => ({
+      '@type': 'Person',
+      name: a.name,
+      description: a.description,
+    })),
+  }}
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>Artists</h1>
+      <p class="page-description">Lilith-4</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="artists-grid">
+        {artists.map((artist, index) => (
+          <a href={`/artists/${artist.slug}/`} class="artist-card">
+            <div class="artist-image-wrapper">
+              <img src={artist.image} alt={artist.name} class="artist-image" />
+              <div class="artist-overlay">
+                <span class="artist-number">0{index + 1}</span>
+              </div>
+            </div>
+            <div class="artist-info">
+              <h2 class="artist-name">{artist.name}</h2>
+              <p class="artist-name-ja">{artist.nameJa}</p>
+              <p class="artist-role">{artist.role}</p>
+              <p class="artist-description">{artist.description}</p>
+              <div class="artist-features">
+                {artist.features.map((f) => (
+                  <span class="feature-tag">{f}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-description {
+    margin-top: var(--space-xs);
+    font-size: 1.125rem;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .artist-card {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-md);
+    border: 2px solid var(--color-border);
+    padding: var(--space-md);
+    transition: border-color 0.2s;
+  }
+
+  .artist-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .artist-image-wrapper {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .artist-card:hover .artist-image {
+    transform: scale(1.05);
+  }
+
+  .artist-overlay {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    background-color: var(--color-bg);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .artist-number {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .artist-name {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .artist-name-ja {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-bottom: var(--space-xs);
+  }
+
+  .artist-role {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-sm);
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .artist-description {
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+  }
+
+  .artist-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .feature-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--color-border);
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .artists-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .artist-card {
+      grid-template-columns: 1fr;
+    }
+
+    .artist-image-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Markdownファイルをglobで読み込む
+const newsModules = import.meta.glob('../../content/news/*.md', { eager: true });
+const newsPosts = Object.entries(newsModules)
+  .map(([path, module]: [string, any]) => ({
+    ...module,
+    url: path.replace('../../content/news/', '/news/').replace('.md', ''),
+    slug: path.split('/').pop()?.replace('.md', ''),
+  }))
+  .sort((a, b) => {
+    const dateA = a.frontmatter?.date || new Date(0);
+    const dateB = b.frontmatter?.date || new Date(0);
+    return new Date(dateB).getTime() - new Date(dateA).getTime();
+  });
+---
+
+<BaseLayout
+  title="News"
+  description="Lilith Recordsの最新ニュース。"
+  breadcrumbs={[{ name: 'News', url: '/news/' }]}
+  schemaType="WebPage"
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>News</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      {newsPosts.length === 0 ? (
+        <p class="no-posts">ニュースはまだありません。</p>
+      ) : (
+        <div class="news-list">
+          {newsPosts.map((post) => (
+            <a href={post.url} class="news-card">
+              <time class="news-date" datetime={post.frontmatter?.date}>
+                {new Date(post.frontmatter?.date).toLocaleDateString('ja-JP')}
+              </time>
+              <h2 class="news-title">{post.frontmatter?.title}</h2>
+              {post.frontmatter?.description && (
+                <p class="news-description">{post.frontmatter.description}</p>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .no-posts {
+    text-align: center;
+    padding: var(--space-lg);
+    opacity: 0.7;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .news-card {
+    display: block;
+    border: 1px solid var(--color-border);
+    padding: var(--space-md);
+    transition: border-color 0.2s;
+  }
+
+  .news-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .news-date {
+    font-size: 0.875rem;
+    font-family: var(--font-heading);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .news-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .news-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+</style>

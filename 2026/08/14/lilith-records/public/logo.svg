@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;display=swap');
+      .logo-text {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        fill: #2A2A2A;
+        letter-spacing: -0.02em;
+      }
+      .logo-accent {
+        fill: #00D4FF;
+      }
+    </style>
+  </defs>
+  <text x="20" y="65" class="logo-text">
+    LILITH<tspan class="logo-accent">.</tspan>RECORDS
+  </text>
+</svg>

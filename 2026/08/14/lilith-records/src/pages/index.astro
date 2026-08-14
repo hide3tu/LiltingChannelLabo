@@ -1,0 +1,685 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { artists } from '../data/artists';
+import { releases } from '../data/releases';
+
+const latestRelease = releases[releases.length - 1];
+const featuredArtists = artists.slice(0, 4);
+
+const newsModules = import.meta.glob('../content/news/*.md', { eager: true });
+const news = Object.entries(newsModules)
+  .map(([path, mod]: [string, any]) => {
+    const slug = path.split('/').pop()?.replace('.md', '');
+    return {
+      slug,
+      title: mod.frontmatter.title,
+      date: mod.frontmatter.date,
+      description: mod.frontmatter.description,
+    };
+  })
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="TOP"
+  description="Lilith Records - 架空のアイドル音楽レーベル。所属ユニット「Lilith-4」の公式サイト。"
+  breadcrumbs={[{ name: 'TOP', url: '/' }]}
+  schemaType="WebPage"
+>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-badge">✦ NEW RELEASE ✦</div>
+          <h1 class="hero-title">
+            <span class="title-main">Lilith-4</span>
+            <span class="title-sub">1st Album "AWAKENING"</span>
+          </h1>
+          <p class="hero-description">4人のアイドルが紡ぐ、新たな音楽の物語</p>
+          <a href={`/releases/${latestRelease.slug}/`} class="hero-cta">
+            <span>Check It Out</span>
+            <span class="cta-icon">→</span>
+          </a>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-frame">
+            <img src={latestRelease.coverImage} alt={latestRelease.title} class="hero-image" />
+            <div class="visual-decoration deco-1"></div>
+            <div class="visual-decoration deco-2"></div>
+            <div class="visual-decoration deco-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artists Section -->
+  <section id="artists" class="artists-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-decoration"></div>
+        <h2 class="section-title">ARTISTS</h2>
+        <p class="section-subtitle">メンバー紹介</p>
+      </div>
+      
+      <div class="artists-grid">
+        {featuredArtists.map((artist, index) => (
+          <a href={`/artists/${artist.slug}/`} class="artist-card">
+            <div class="card-visual">
+              <img src={artist.image} alt={artist.name} class="artist-image" />
+              <div class="card-overlay"></div>
+              <div class="card-number">0{index + 1}</div>
+            </div>
+            <div class="card-content">
+              <h3 class="artist-name">{artist.name}</h3>
+              <p class="artist-name-ja">{artist.nameJa}</p>
+              <p class="artist-role">{artist.role}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Release -->
+  <section class="release-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-decoration"></div>
+        <h2 class="section-title">LATEST RELEASE</h2>
+        <p class="section-subtitle">最新リリース</p>
+      </div>
+      
+      <div class="release-showcase">
+        <div class="release-artwork">
+          <img src={latestRelease.coverImage} alt={latestRelease.title} />
+          <div class="artwork-badge">{latestRelease.type === 'album' ? 'ALBUM' : 'SINGLE'}</div>
+        </div>
+        <div class="release-info">
+          <div class="release-meta">
+            <span class="catalog">{latestRelease.catalogNumber}</span>
+            <span class="divider">|</span>
+            <span class="date">{new Date(latestRelease.releaseDate).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          </div>
+          <h3 class="release-title">{latestRelease.title}</h3>
+          <p class="release-artist">{latestRelease.artist}</p>
+          <div class="release-tracks">
+            {latestRelease.tracks.slice(0, 3).map((track, i) => (
+              <div class="track-item">
+                <span class="track-number">{String(i + 1).padStart(2, '0')}</span>
+                <span class="track-name">{track.title}</span>
+                <span class="track-duration">{track.duration}</span>
+              </div>
+            ))}
+          </div>
+          <div class="release-links">
+            {latestRelease.links.spotify && <a href={latestRelease.links.spotify} target="_blank" rel="noopener" class="release-btn">
+              <span>Spotify</span>
+            </a>}
+            {latestRelease.links.youtube && <a href={latestRelease.links.youtube} target="_blank" rel="noopener" class="release-btn">
+              <span>YouTube</span>
+            </a>}
+            {latestRelease.links.appleMusic && <a href={latestRelease.links.appleMusic} target="_blank" rel="noopener" class="release-btn">
+              <span>Apple Music</span>
+            </a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News Section -->
+  <section class="news-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-decoration"></div>
+        <h2 class="section-title">NEWS</h2>
+        <p class="section-subtitle">お知らせ</p>
+        <a href="/news/" class="view-all">View All →</a>
+      </div>
+      
+      <div class="news-list">
+        {news.map((item) => (
+          <a href={`/news/${item.slug}/`} class="news-item">
+            <div class="news-date">
+              <span class="date-day">{new Date(item.date).getDate()}</span>
+              <span class="date-month">{new Date(item.date).toLocaleDateString('en-US', { month: 'short' }).toUpperCase()}</span>
+            </div>
+            <div class="news-content">
+              <h3 class="news-title">{item.title}</h3>
+              <p class="news-excerpt">{item.description}</p>
+            </div>
+            <div class="news-arrow">→</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero {
+    position: relative;
+    padding: 6rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+    z-index: 0;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #FF0080, #00D4FF);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .title-main {
+    display: block;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #FF0080, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .title-sub {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-top: 0.5rem;
+  }
+
+  .hero-description {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    opacity: 0.8;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(90deg, #FF0080, #00D4FF);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: transform 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: translateX(4px);
+  }
+
+  .cta-icon {
+    font-size: 1.5rem;
+  }
+
+  .hero-visual {
+    position: relative;
+  }
+
+  .visual-frame {
+    position: relative;
+    aspect-ratio: 1;
+    border: 4px solid #FF0080;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .visual-decoration {
+    position: absolute;
+    border: 3px solid;
+  }
+
+  .deco-1 {
+    width: 80px;
+    height: 80px;
+    border-color: #00D4FF;
+    top: -20px;
+    right: -20px;
+  }
+
+  .deco-2 {
+    width: 60px;
+    height: 60px;
+    border-color: #FFD700;
+    bottom: -15px;
+    left: -15px;
+  }
+
+  .deco-3 {
+    width: 100px;
+    height: 100px;
+    border-color: #FF6B9D;
+    bottom: 20%;
+    right: -30px;
+    opacity: 0.5;
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  .header-decoration {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #FF0080, #00D4FF);
+    margin: 0 auto 1.5rem;
+  }
+
+  .section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+  }
+
+  /* Artists Section */
+  .artists-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 212, 255, 0.05) 100%);
+  }
+
+  .artists-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .artist-card {
+    display: block;
+    background: white;
+    border: 2px solid var(--color-border);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .artist-card:hover {
+    transform: translateY(-8px);
+    border-color: #FF0080;
+  }
+
+  .card-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+  }
+
+  .artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+
+  .artist-card:hover .artist-image {
+    transform: scale(1.05);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(255, 0, 128, 0.2) 100%);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #FF0080, #00D4FF);
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .artist-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .artist-name-ja {
+    font-size: 0.875rem;
+    color: var(--color-accent-1);
+    margin-bottom: 0.5rem;
+  }
+
+  .artist-role {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Release Section */
+  .release-section {
+    padding: 5rem 0;
+  }
+
+  .release-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .release-artwork {
+    position: relative;
+    aspect-ratio: 1;
+    border: 4px solid #FF0080;
+  }
+
+  .release-artwork img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .artwork-badge {
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    background: linear-gradient(135deg, #FFD700, #FF0080);
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .release-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .catalog {
+    color: var(--color-accent-2);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .divider {
+    opacity: 0.3;
+  }
+
+  .date {
+    opacity: 0.7;
+  }
+
+  .release-title {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #FF0080, #00D4FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .release-artist {
+    font-size: 1.25rem;
+    opacity: 0.7;
+    margin-bottom: 2rem;
+  }
+
+  .release-tracks {
+    margin-bottom: 2rem;
+  }
+
+  .track-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr 4rem;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: center;
+  }
+
+  .track-number {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-accent-1);
+  }
+
+  .track-name {
+    font-weight: 600;
+  }
+
+  .track-duration {
+    text-align: right;
+    opacity: 0.7;
+    font-size: 0.875rem;
+  }
+
+  .release-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .release-btn {
+    flex: 1;
+    background: linear-gradient(135deg, #FF0080, #00D4FF);
+    color: white;
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .release-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* News Section */
+  .news-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, rgba(255, 0, 128, 0.05) 0%, transparent 100%);
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .view-all {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-accent-1);
+    letter-spacing: 0.1em;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 50px;
+    gap: 2rem;
+    padding: 2rem;
+    background: white;
+    border: 2px solid var(--color-border);
+    transition: all 0.3s;
+    align-items: center;
+  }
+
+  .news-item:hover {
+    border-color: #FF0080;
+    transform: translateX(8px);
+  }
+
+  .news-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .date-day {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-accent-1);
+  }
+
+  .date-month {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-top: 0.25rem;
+  }
+
+  .news-content {
+    flex: 1;
+  }
+
+  .news-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .news-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    opacity: 0.7;
+  }
+
+  .news-arrow {
+    font-size: 1.5rem;
+    color: var(--color-accent-1);
+    font-weight: 700;
+    transition: transform 0.3s;
+  }
+
+  .news-item:hover .news-arrow {
+    transform: translateX(4px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 0;
+    }
+
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .title-main {
+      font-size: 3rem;
+    }
+
+    .title-sub {
+      font-size: 1.25rem;
+    }
+
+    .artists-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+    }
+
+    .release-showcase {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .release-title {
+      font-size: 2rem;
+    }
+
+    .news-item {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .news-date {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    .news-arrow {
+      display: none;
+    }
+  }
+</style>

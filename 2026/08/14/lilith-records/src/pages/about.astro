@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="Lilith Recordsについて。架空の音楽レーベルの設立理念とビジョン。"
+  breadcrumbs={[{ name: 'About', url: '/about/' }]}
+  schemaType="WebPage"
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>About</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-block">
+          <h2>Lilith Records</h2>
+          <p>
+            Lilith Recordsは、架空の音楽レーベルです。
+            このサイトは、pi.devとQwenモデルを使ったAstroサイト制作の検証目的で構築されました。
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h2>設立理念</h2>
+          <p>
+            「テクノロジーとクリエイティビティの交差点で、新しい表現を生み出す」
+          </p>
+          <p>
+            私たちは、AIと人間の協業によって生まれる音楽の可能性を信じています。
+            従来の業界の枠組みにとらわれず、実験的なサウンドとビジュアルを追求します。
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h2>Lilith-4</h2>
+          <p>
+            当レーベルの第一弾アーティストとして、4人組アイドルユニット「Lilith-4」を擁しています。
+            メンバーはそれぞれ独自の個性を持ち、音楽・パフォーマンス・ビジュアルのすべてで
+            新しい価値を創造します。
+          </p>
+          <p>
+            <a href="/artists/">メンバー詳細 →</a>
+          </p>
+        </div>
+
+        <div class="about-block">
+          <h2>技術スタック</h2>
+          <p>
+            このサイトは以下の技術で構築されています：
+          </p>
+          <ul>
+            <li>Astro v7（静的サイトジェネレーター）</li>
+            <li>pi.dev（コーディングエージェントハーネス）</li>
+            <li>Qwen（LLMモデル）</li>
+            <li>ComfyUI + Anima LoRA（画像生成）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-content {
+    max-width: 800px;
+  }
+
+  .about-block {
+    margin-bottom: var(--space-lg);
+  }
+
+  .about-block h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-block p {
+    margin-bottom: var(--space-sm);
+    line-height: 1.8;
+  }
+
+  .about-block ul {
+    margin-left: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .about-block li {
+    margin-bottom: var(--space-xs);
+    line-height: 1.6;
+  }
+
+  .about-block a {
+    color: var(--color-accent);
+    border-bottom: 1px solid var(--color-accent);
+  }
+</style>

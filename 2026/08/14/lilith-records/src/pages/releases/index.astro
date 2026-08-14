@@ -1,0 +1,134 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { releases } from '../../data/releases';
+---
+
+<BaseLayout
+  title="Releases"
+  description="Lilith Recordsのリリース情報。"
+  breadcrumbs={[{ name: 'Releases', url: '/releases/' }]}
+  schemaType="WebPage"
+>
+  <div class="page-header">
+    <div class="container">
+      <h1>Releases</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="releases-list">
+        {releases.map((release) => (
+          <a href={`/releases/${release.slug}/`} class="release-card">
+            <div class="release-cover">
+              <img src={release.coverImage} alt={release.title} class="cover-image" />
+            </div>
+            <div class="release-info">
+              <span class="release-type">
+                {release.type === 'album' ? 'Album' : release.type === 'single' ? 'Single' : 'Mini Album'}
+              </span>
+              <h2 class="release-title">{release.title}</h2>
+              <p class="release-artist">{release.artist}</p>
+              <p class="release-date">
+                {new Date(release.releaseDate).toLocaleDateString('ja-JP')}
+              </p>
+              <p class="release-catalog">{release.catalogNumber}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .releases-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .release-card {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-md);
+    border: 1px solid var(--color-border);
+    padding: var(--space-md);
+    transition: border-color 0.2s;
+  }
+
+  .release-card:hover {
+    border-color: var(--color-accent);
+  }
+
+  .release-cover {
+    aspect-ratio: 1;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm);
+  }
+
+  .cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .release-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .release-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .release-artist {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .release-date {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    margin-bottom: 0.25rem;
+  }
+
+  .release-catalog {
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    opacity: 0.5;
+  }
+
+  .placeholder-image {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .release-card {
+      grid-template-columns: 1fr;
+    }
+
+    .release-cover {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+  }
+</style>

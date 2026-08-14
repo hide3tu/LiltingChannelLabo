@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  schemaType?: 'WebPage' | 'MusicGroup' | 'MusicAlbum' | 'MusicRecording' | 'BlogPosting';
+  schemaData?: Record<string, any>;
+}
+
+const {
+  title,
+  description = 'Lilith Records - 架空の音楽レーベル',
+  ogImage = '/og-default.jpg',
+  breadcrumbs = [],
+  schemaType = 'WebPage',
+  schemaData = {},
+} = Astro.props;
+
+const siteUrl = 'https://lilith-records.example.com';
+const fullUrl = Astro.url.pathname === '/' ? siteUrl : `${siteUrl}${Astro.url.pathname}`;
+
+// Build JSON-LD
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  name: title,
+  description,
+  url: fullUrl,
+  ...schemaData,
+};
+
+// Add Organization as publisher/author
+if (schemaType !== 'Organization') {
+  jsonLd.publisher = {
+    '@type': 'Organization',
+    name: 'Lilith Records',
+    url: siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/logo.png`,
+    },
+  };
+}
+
+// Add BreadcrumbList if breadcrumbs provided
+const breadcrumbJsonLd = breadcrumbs.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'TOP', item: siteUrl },
+        ...breadcrumbs.map((b, i) => ({
+          '@type': 'ListItem',
+          position: i + 2,
+          name: b.name,
+          item: b.url.startsWith('http') ? b.url : `${siteUrl}${b.url}`,
+        })),
+      ],
+    }
+  : null;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{title} | Lilith Records</title>
+    <meta name="title" content={`${title} | Lilith Records`} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Lilith Records, Lilith-4, アイドル, 音楽レーベル" />
+    <link rel="canonical" href={fullUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={schemaType === 'BlogPosting' ? 'article' : 'website'} />
+    <meta property="og:url" content={fullUrl} />
+    <meta property="og:title" content={`${title} | Lilith Records`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+    <meta property="og:site_name" content="Lilith Records" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Lilith Records`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {breadcrumbJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+    )}
+
+    <!-- Fonts are loaded in global.css -->
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="/" class="logo"><img src="/logo.png" alt="Lilith Records" height="40" /></a>
+        <nav class="nav">
+          <a href="/about/">About</a>
+          <a href="/artists/">Artists</a>
+          <a href="/releases/">Releases</a>
+          <a href="/news/">News</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2026 Lilith Records. All rights reserved. (架空のサイトです)</p>
+      </div>
+    </footer>
+  </body>
+</html>
