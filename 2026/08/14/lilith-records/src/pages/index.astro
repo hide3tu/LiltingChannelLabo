@@ -29,35 +29,24 @@ const news = Object.entries(newsModules)
 >
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <div class="hero-badge">✦ NEW RELEASE ✦</div>
-          <h1 class="hero-title">
-            <span class="title-main">Lilith-4</span>
-            <span class="title-sub">1st Album "AWAKENING"</span>
-          </h1>
-          <p class="hero-description">4人のアイドルが紡ぐ、新たな音楽の物語</p>
-          <a href={`/releases/${latestRelease.slug}/`} class="hero-cta">
-            <span>Check It Out</span>
-            <span class="cta-icon">→</span>
-          </a>
-        </div>
-        <div class="hero-visual">
-          <div class="visual-frame">
-            <img src="/images/group/main.jpg" alt="Lilith-4" class="hero-image" />
-            <div class="visual-decoration deco-1"></div>
-            <div class="visual-decoration deco-2"></div>
-            <div class="visual-decoration deco-3"></div>
-          </div>
-        </div>
-      </div>
+    <img src="/images/group/main.jpg" alt="Lilith-4" class="hero-bg-image" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">✦ NEW RELEASE ✦</div>
+      <h1 class="hero-title">
+        <span class="title-main">Lilith-4</span>
+        <span class="title-sub">1st Album "AWAKENING"</span>
+      </h1>
+      <p class="hero-description">4人のアイドルが紡ぐ、新たな音楽の物語</p>
+      <a href={`/releases/${latestRelease.slug}/`} class="hero-cta">
+        <span>Check It Out</span>
+        <span class="cta-icon">→</span>
+      </a>
     </div>
   </section>
 
   <!-- Artists Section -->
-  <section id="artists" class="artists-section">
+  <section id="artists" class="artists-section snap-section">
     <div class="container">
       <div class="section-header">
         <div class="header-decoration"></div>
@@ -85,7 +74,7 @@ const news = Object.entries(newsModules)
   </section>
 
   <!-- Latest Release -->
-  <section class="release-section">
+  <section class="release-section snap-section">
     <div class="container">
       <div class="section-header">
         <div class="header-decoration"></div>
@@ -132,7 +121,7 @@ const news = Object.entries(newsModules)
   </section>
 
   <!-- News Section -->
-  <section class="news-section">
+  <section class="news-section snap-section">
     <div class="container">
       <div class="section-header">
         <div class="header-decoration"></div>
@@ -160,7 +149,7 @@ const news = Object.entries(newsModules)
   </section>
 
   <!-- Events Section -->
-  <section class="events-section">
+  <section class="events-section snap-section">
     <div class="container">
       <div class="section-header">
         <div class="header-decoration"></div>
@@ -186,59 +175,80 @@ const news = Object.entries(newsModules)
       </div>
     </div>
   </section>
-
-  <!-- Promo Banner -->
-  <section class="promo-section">
-    <div class="container">
-      <div class="promo-banner">
-        <img src="/images/promo/promo-banner.jpg" alt="Lilith-4 Promotion" />
-      </div>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
-  /* Hero Section */
-  .hero {
+  /* Scroll Snap Sections */
+  .snap-section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     position: relative;
-    padding: 6rem 0 4rem;
-    overflow: hidden;
   }
 
-  .hero-bg {
+  .snap-section > .container {
+    width: 100%;
+  }
+
+  /* Hero Section - Fullscreen */
+  .hero {
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-bg-image {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.3) 0%, rgba(0, 212, 255, 0.3) 100%);
+    z-index: 1;
   }
 
   .hero-content {
     position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 2rem;
   }
 
   .hero-badge {
     display: inline-block;
-    background: linear-gradient(90deg, #FF0080, #00D4FF);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     color: white;
-    padding: 0.5rem 1.5rem;
-    font-size: 0.875rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
   }
 
   .hero-title {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   }
 
   .title-main {
     display: block;
-    font-size: 5rem;
+    font-size: 7rem;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -246,21 +256,21 @@ const news = Object.entries(newsModules)
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 1rem;
   }
 
   .title-sub {
     display: block;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 600;
-    color: var(--color-text);
-    margin-top: 0.5rem;
+    color: white;
   }
 
   .hero-description {
-    font-size: 1.125rem;
-    color: var(--color-text);
-    opacity: 0.8;
-    margin-bottom: 2rem;
+    font-size: 1.25rem;
+    color: white;
+    margin-bottom: 3rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
 
   .hero-cta {
@@ -269,66 +279,23 @@ const news = Object.entries(newsModules)
     gap: 0.75rem;
     background: linear-gradient(90deg, #FF0080, #00D4FF);
     color: white;
-    padding: 1rem 2rem;
-    font-size: 1rem;
+    padding: 1.25rem 3rem;
+    font-size: 1.125rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 8px 30px rgba(255, 0, 128, 0.4);
   }
 
   .hero-cta:hover {
-    transform: translateX(4px);
+    transform: translateX(8px);
+    box-shadow: 0 12px 40px rgba(255, 0, 128, 0.6);
   }
 
   .cta-icon {
     font-size: 1.5rem;
-  }
-
-  .hero-visual {
-    position: relative;
-  }
-
-  .visual-frame {
-    position: relative;
-    aspect-ratio: 1;
-    border: 4px solid #FF0080;
-  }
-
-  .hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .visual-decoration {
-    position: absolute;
-    border: 3px solid;
-  }
-
-  .deco-1 {
-    width: 80px;
-    height: 80px;
-    border-color: #00D4FF;
-    top: -20px;
-    right: -20px;
-  }
-
-  .deco-2 {
-    width: 60px;
-    height: 60px;
-    border-color: #FFD700;
-    bottom: -15px;
-    left: -15px;
-  }
-
-  .deco-3 {
-    width: 100px;
-    height: 100px;
-    border-color: #FF6B9D;
-    bottom: 20%;
-    right: -30px;
-    opacity: 0.5;
   }
 
   /* Section Header */
@@ -346,14 +313,14 @@ const news = Object.entries(newsModules)
   }
 
   .section-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     margin-bottom: 0.5rem;
   }
 
   .section-subtitle {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: var(--color-text);
     opacity: 0.6;
     letter-spacing: 0.05em;
@@ -508,7 +475,7 @@ const news = Object.entries(newsModules)
   }
 
   .release-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1;
@@ -668,62 +635,6 @@ const news = Object.entries(newsModules)
     transform: translateX(4px);
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .hero {
-      padding: 3rem 0;
-    }
-
-    .hero-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .title-main {
-      font-size: 3rem;
-    }
-
-    .title-sub {
-      font-size: 1.25rem;
-    }
-
-    .artists-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .section-title {
-      font-size: 2rem;
-    }
-
-    .release-showcase {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .release-title {
-      font-size: 2rem;
-    }
-
-    .news-item {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .news-date {
-      flex-direction: row;
-      gap: 0.5rem;
-    }
-
-    .news-arrow {
-      display: none;
-    }
-
-    .events-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
   /* Events Section */
   .events-section {
     padding: 5rem 0;
@@ -769,21 +680,50 @@ const news = Object.entries(newsModules)
     opacity: 0.9;
   }
 
-  /* Promo Section */
-  .promo-section {
-    padding: 0 0 5rem;
-  }
+  /* Responsive */
+  @media (max-width: 768px) {
+    .title-main {
+      font-size: 4rem;
+    }
 
-  .promo-banner {
-    width: 100%;
-    aspect-ratio: 16/6;
-    overflow: hidden;
-    border: 3px solid var(--color-accent-1);
-  }
+    .title-sub {
+      font-size: 1.5rem;
+    }
 
-  .promo-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    .section-title {
+      font-size: 2.5rem;
+    }
+
+    .artists-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .release-showcase {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .release-title {
+      font-size: 2.5rem;
+    }
+
+    .news-item {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .news-date {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+
+    .news-arrow {
+      display: none;
+    }
+
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

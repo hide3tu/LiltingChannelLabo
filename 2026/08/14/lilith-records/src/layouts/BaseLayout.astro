@@ -61,6 +61,8 @@ const breadcrumbJsonLd = breadcrumbs.length > 0
       ],
     }
   : null;
+
+const isTop = Astro.url.pathname === '/';
 ---
 
 <!doctype html>
@@ -96,20 +98,16 @@ const breadcrumbJsonLd = breadcrumbs.length > 0
     {breadcrumbJsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
     )}
-
-    <!-- Fonts are loaded in global.css -->
   </head>
-  <body>
-    <header class="site-header">
-      <div class="container">
-        <a href="/" class="logo"><img src="/logo.png" alt="Lilith Records" height="40" /></a>
-        <nav class="nav">
-          <a href="/about/">About</a>
-          <a href="/artists/">Artists</a>
-          <a href="/releases/">Releases</a>
-          <a href="/news/">News</a>
-        </nav>
-      </div>
+  <body class:list={[{ 'is-top': isTop }]}>
+    <header class="site-header" class:list={[{ 'is-overlay': isTop }]}>
+      <a href="/" class="logo"><img src="/logo.png" alt="Lilith Records" /></a>
+      <nav class="nav">
+        <a href="/about/">About</a>
+        <a href="/artists/">Artists</a>
+        <a href="/releases/">Releases</a>
+        <a href="/news/">News</a>
+      </nav>
     </header>
 
     <main>
@@ -121,5 +119,116 @@ const breadcrumbJsonLd = breadcrumbs.length > 0
         <p>&copy; 2026 Lilith Records. All rights reserved. (架空のサイトです)</p>
       </div>
     </footer>
+
+    <canvas id="sparkle-canvas"></canvas>
+
+    <script>
+      // Star sparkle particles
+      const canvas = document.getElementById('sparkle-canvas') as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas context not available');
+
+      const colors = ['#FF0080', '#00D4FF', '#FFD700', '#FF6B9D', '#FFFFFF'];
+      const PARTICLE_COUNT = 40;
+
+      interface Particle {
+        x: number;
+        y: number;
+        size: number;
+        color: string;
+        alpha: number;
+        fadeDir: number;
+        fadeSpeed: number;
+        twinkleSpeed: number;
+      }
+
+      let particles: Particle[] = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+      }
+
+      function createParticle(): Particle {
+        return {
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.5,
+          fadeDir: 1,
+          fadeSpeed: Math.random() * 0.008 + 0.003,
+          twinkleSpeed: Math.random() * 0.02 + 0.01,
+        };
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push(createParticle());
+        }
+      }
+
+      function drawStar(x: number, y: number, size: number, alpha: number, color: string) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = color;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = size * 3;
+
+        // Draw 4-pointed star
+        ctx.beginPath();
+        for (let i = 0; i < 4; i++) {
+          const angle = (i * Math.PI) / 2;
+          const outerX = x + Math.cos(angle) * size;
+          const outerY = y + Math.sin(angle) * size;
+          const innerAngle = angle + Math.PI / 4;
+          const innerX = x + Math.cos(innerAngle) * (size * 0.3);
+          const innerY = y + Math.sin(innerAngle) * (size * 0.3);
+          if (i === 0) {
+            ctx.moveTo(outerX, outerY);
+          } else {
+            ctx.lineTo(outerX, outerY);
+          }
+          ctx.lineTo(innerX, innerY);
+        }
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (const p of particles) {
+          p.alpha += p.fadeDir * p.fadeSpeed;
+
+          if (p.alpha >= 1) {
+            p.alpha = 1;
+            p.fadeDir = -1;
+          } else if (p.alpha <= 0) {
+            // Respawn
+            p.x = Math.random() * canvas.width;
+            p.y = Math.random() * canvas.height;
+            p.alpha = 0;
+            p.fadeDir = 1;
+            p.size = Math.random() * 3 + 1;
+            p.color = colors[Math.floor(Math.random() * colors.length)];
+          }
+
+          const twinkle = Math.sin(Date.now() * p.twinkleSpeed) * 0.3 + 0.7;
+          drawStar(p.x, p.y, p.size, p.alpha * twinkle, p.color);
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize);
+      init();
+      animate();
+    </script>
   </body>
 </html>
