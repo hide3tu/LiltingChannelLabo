@@ -38,6 +38,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <div class="about-block">
           <h2>Lilith-4</h2>
+          <div class="about-image">
+            <img src="/images/events/live-performance.jpg" alt="Lilith-4 ライブパフォーマンス" />
+          </div>
           <p>
             当レーベルの第一弾アーティストとして、4人組アイドルユニット「Lilith-4」を擁しています。
             メンバーはそれぞれ独自の個性を持ち、音楽・パフォーマンス・ビジュアルのすべてで
@@ -99,5 +102,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .about-block a {
     color: var(--color-accent);
     border-bottom: 1px solid var(--color-accent);
+  }
+
+  .about-image {
+    margin: var(--space-md) 0;
+    border: 3px solid var(--color-accent-1);
+  }
+
+  .about-image img {
+    width: 100%;
+    height: auto;
+    display: block;
   }
 </style>

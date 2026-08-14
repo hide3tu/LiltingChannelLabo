@@ -46,7 +46,7 @@ const news = Object.entries(newsModules)
         </div>
         <div class="hero-visual">
           <div class="visual-frame">
-            <img src={latestRelease.coverImage} alt={latestRelease.title} class="hero-image" />
+            <img src="/images/group/main.jpg" alt="Lilith-4" class="hero-image" />
             <div class="visual-decoration deco-1"></div>
             <div class="visual-decoration deco-2"></div>
             <div class="visual-decoration deco-3"></div>
@@ -155,6 +155,43 @@ const news = Object.entries(newsModules)
             <div class="news-arrow">→</div>
           </a>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="events-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="header-decoration"></div>
+        <h2 class="section-title">EVENTS</h2>
+        <p class="section-subtitle">イベント情報</p>
+      </div>
+      
+      <div class="events-grid">
+        <div class="event-card">
+          <img src="/images/events/debut-event.jpg" alt="Debut Event" class="event-image" />
+          <div class="event-content">
+            <h3>Debut Showcase</h3>
+            <p>Lilith-4デビューイベント</p>
+          </div>
+        </div>
+        <div class="event-card">
+          <img src="/images/events/behind-scenes.jpg" alt="Behind the Scenes" class="event-image" />
+          <div class="event-content">
+            <h3>Behind the Scenes</h3>
+            <p>バックステージ風景</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo Banner -->
+  <section class="promo-section">
+    <div class="container">
+      <div class="promo-banner">
+        <img src="/images/promo/promo-banner.jpg" alt="Lilith-4 Promotion" />
       </div>
     </div>
   </section>
@@ -681,5 +718,72 @@ const news = Object.entries(newsModules)
     .news-arrow {
       display: none;
     }
+
+    .events-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Events Section */
+  .events-section {
+    padding: 5rem 0;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .event-card {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border: 3px solid var(--color-accent-1);
+  }
+
+  .event-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .event-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    color: white;
+  }
+
+  .event-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-content p {
+    font-size: 0.875rem;
+    opacity: 0.9;
+  }
+
+  /* Promo Section */
+  .promo-section {
+    padding: 0 0 5rem;
+  }
+
+  .promo-banner {
+    width: 100%;
+    aspect-ratio: 16/6;
+    overflow: hidden;
+    border: 3px solid var(--color-accent-1);
+  }
+
+  .promo-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>
