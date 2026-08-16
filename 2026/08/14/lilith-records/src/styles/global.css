@@ -117,7 +117,7 @@ body:not(.is-top) .site-header {
 }
 
 .logo img {
-  height: 40px;
+  height: 60px;
   width: auto;
   transition: filter 0.3s ease;
 }
