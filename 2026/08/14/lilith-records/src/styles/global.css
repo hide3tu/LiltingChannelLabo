@@ -100,7 +100,7 @@ img {
 }
 
 .site-header.is-overlay .logo img {
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .site-header.is-overlay .nav a {

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 80">
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&amp;display=swap');
@@ -14,7 +14,7 @@
       }
     </style>
   </defs>
-  <text x="20" y="65" class="logo-text">
+  <text x="20" y="55" class="logo-text">
     LILITH<tspan class="logo-accent">.</tspan>RECORDS
   </text>
 </svg>
