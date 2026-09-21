@@ -1,0 +1,1 @@
+Remove the white background of image 1 and make the background fully transparent. Keep the two girls exactly as they are.

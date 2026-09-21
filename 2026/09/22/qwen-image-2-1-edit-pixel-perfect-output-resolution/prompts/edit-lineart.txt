@@ -1,0 +1,1 @@
+Convert image 1 into clean black line art on a pure white background. Trace every contour and detail exactly where it is in the original image. Do not move, resize, crop, or redraw anything. No color, no shading, no gray tones.
