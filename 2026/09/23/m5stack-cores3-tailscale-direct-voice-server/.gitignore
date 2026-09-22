@@ -1,0 +1,7 @@
+/config.h
+/sdkconfig
+/sdkconfig.old
+/build/
+/managed_components/
+/serial-*.log
+__pycache__/
