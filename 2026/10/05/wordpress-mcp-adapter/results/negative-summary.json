@@ -1,0 +1,66 @@
+{
+  "anonymous": [
+    401,
+    {
+      "code": "rest_forbidden",
+      "message": "その操作を実行する権限がありません。",
+      "data": {
+        "status": 401
+      }
+    }
+  ],
+  "subscriber_summarize": {
+    "jsonrpc": "2.0",
+    "id": 3,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Permission denied"
+        }
+      ],
+      "isError": true
+    }
+  },
+  "invalid_input": {
+    "jsonrpc": "2.0",
+    "id": 3,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Permission denied"
+        }
+      ],
+      "isError": true
+    }
+  },
+  "invalid_ai_model": {
+    "jsonrpc": "2.0",
+    "id": 4,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "AI API returned HTTP 400. No draft was created."
+        }
+      ],
+      "isError": true
+    }
+  },
+  "unknown_summary": {
+    "jsonrpc": "2.0",
+    "id": 5,
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Generate a summary in this user session first. It expires after 15 minutes."
+        }
+      ],
+      "isError": true
+    }
+  },
+  "drafts_before": 1,
+  "drafts_after": 1
+}

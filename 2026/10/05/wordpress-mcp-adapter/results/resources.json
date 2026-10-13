@@ -1,0 +1,24 @@
+[
+  {
+    "BlockIO": "206MB / 123MB",
+    "CPUPerc": "0.01%",
+    "Container": "lilting-wordpress-mcp-wordpress-1",
+    "ID": "f8fd9e2094ee",
+    "MemPerc": "25.39%",
+    "MemUsage": "195MiB / 768MiB",
+    "Name": "lilting-wordpress-mcp-wordpress-1",
+    "NetIO": "4.24MB / 2.89MB",
+    "PIDs": "11"
+  },
+  {
+    "BlockIO": "57.2MB / 22.5MB",
+    "CPUPerc": "0.03%",
+    "Container": "lilting-wordpress-mcp-db-1",
+    "ID": "c5045bb48fec",
+    "MemPerc": "32.49%",
+    "MemUsage": "166.3MiB / 512MiB",
+    "Name": "lilting-wordpress-mcp-db-1",
+    "NetIO": "947kB / 5.25MB",
+    "PIDs": "16"
+  }
+]
