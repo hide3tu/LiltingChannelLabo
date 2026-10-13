@@ -1,0 +1,4 @@
+{"name":"UTC day transition","pass":true}
+{"name":"Windows filename with a dot","pass":true}
+{"name":"Same instant with a different offset","pass":true}
+{"passed":3,"total":3}

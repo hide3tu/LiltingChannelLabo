@@ -1,0 +1,12 @@
+{
+  "qwen": {
+    "trials": 3,
+    "meanSeconds": 78.69866666666667,
+    "sampleStdDevSeconds": 12.353599731792075
+  },
+  "deepseek": {
+    "trials": 3,
+    "meanSeconds": 44.542,
+    "sampleStdDevSeconds": 6.306751620287578
+  }
+}

@@ -1,0 +1,4 @@
+{"name":"UTC day transition","pass":false,"error":"Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n+   'Older',\n    'Newer',\n-   'Older'\n  ]\n"}
+{"name":"Windows filename with a dot","pass":false,"error":"Expected values to be strictly equal:\n+ actual - expected\n\n+ '/articles/C:\\\\articles\\\\v2.notes'\n- '/articles/v2.notes'\n             ^\n"}
+{"name":"Same instant with a different offset","pass":false,"error":"Expected values to be strictly equal:\n\n0 !== 1\n"}
+{"passed":0,"total":3}

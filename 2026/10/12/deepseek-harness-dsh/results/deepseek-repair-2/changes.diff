@@ -1,0 +1,39 @@
+--- before/src/catalog.js
++++ after/src/catalog.js
+@@ -1,10 +1,26 @@
+ export function buildCatalog(records, { now }) {
++  const nowMs = Date.parse(now);
++
+   return records
+     .filter((record) => record.draft !== true)
+-    .filter((record) => Date.parse(record.publishedAt) < Date.parse(now))
+-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+-    .map((record) => {
+-      const slug = record.source.split('/').at(-1).replace(/\.md$/, '');
++    .filter((record) => {
++      const publishedMs = Date.parse(record.publishedAt);
++      return (
++        Number.isFinite(publishedMs) &&
++        Number.isFinite(nowMs) &&
++        publishedMs <= nowMs
++      );
++    })
++    .map((record) => ({
++      record,
++      publishedMs: Date.parse(record.publishedAt),
++    }))
++    .sort((a, b) => b.publishedMs - a.publishedMs)
++    .map(({ record }) => {
++      const slug = record.source
++        .split(/[\\/]/)
++        .at(-1)
++        .replace(/\.md$/, '');
+       return {
+         title: record.title,
+         slug,
+@@ -12,4 +28,4 @@
+         publishedAt: record.publishedAt,
+       };
+     });
+-}
++}

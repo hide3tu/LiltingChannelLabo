@@ -1,0 +1,27 @@
+- id: agent-default-model
+  config:
+    provider: modelscope-experiment
+    model: "deepseek-ai/DeepSeek-V4.1-Flash"
+- id: llm-pi-ai
+  config:
+    providers:
+      modelscope-experiment:
+        apiKeyEnv: DSH_EXPERIMENT_API_KEY
+        api: openai-completions
+        baseURL: https://api-inference.modelscope.ai/v1
+        compat:
+          supportsDeveloperRole: false
+          maxTokensField: max_tokens
+        retryPolicy:
+          mode: normal
+          maxRetries: 0
+        models:
+          - id: "deepseek-ai/DeepSeek-V4.1-Flash"
+            contextWindow: 131072
+            maxTokens: 8192
+- id: agent-instructions
+  disabled: true
+- id: skill-filesystem
+  disabled: true
+- id: session-telemetry-otel
+  disabled: true

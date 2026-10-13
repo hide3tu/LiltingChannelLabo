@@ -1,0 +1,27 @@
+--- before/src/catalog.js
++++ after/src/catalog.js
+@@ -1,15 +1,20 @@
+ export function buildCatalog(records, { now }) {
++  const nowTime = Date.parse(now);
+   return records
+     .filter((record) => record.draft !== true)
+-    .filter((record) => Date.parse(record.publishedAt) < Date.parse(now))
+-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
++    .filter((record) => {
++      const publishedTime = Date.parse(record.publishedAt);
++      return Number.isFinite(publishedTime) && publishedTime <= nowTime;
++    })
+     .map((record) => {
+-      const slug = record.source.split('/').at(-1).replace(/\.md$/, '');
++      const filename = record.source.split(/[\\/]/).at(-1);
++      const slug = filename.replace(/\.md$/, '');
+       return {
+         title: record.title,
+         slug,
+         url: `/articles/${slug}`,
+         publishedAt: record.publishedAt,
+       };
+-    });
++    })
++    .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
+ }

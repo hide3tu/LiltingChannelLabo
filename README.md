@@ -9,6 +9,7 @@ Companion code for experiments and benchmarks published on [lilting channel](htt
 
 | 日付 | 実験 | 記事 |
 |---|---|---|
+| 2026-10-12 | [DSHをQwenとDeepSeekのAPIにつないだコード修正実験](2026/10/12/deepseek-harness-dsh/) | [JA](https://www.lilting.ch/articles/deepseek-harness-dsh) / [EN](https://www.lilting.ch/en/articles/deepseek-harness-dsh) |
 | 2026-09-23 | [CoreS3からTailscale・東京DERP経由でWAVを取得](2026/09/23/m5stack-cores3-tailscale-direct-voice-server/) | [JA](https://lilting.ch/articles/m5stack-cores3-tailscale-direct-voice-server) / [EN](https://lilting.ch/en/articles/m5stack-cores3-tailscale-direct-voice-server) |
 | 2026-09-20 | [OEM版ACR1251Uのファームウェアを書き換えて非接触側を動かす](2026/09/20/acr1251u-ntag-ez-sign-windows/) | [JA](https://www.lilting.ch/articles/acr1251u-ntag-ez-sign-windows) |
 | 2026-08-22 | [Z3で18bitうるう年判定の定数を合成](2026/08/22/leap-year-magic-number-z3/) | [JA](https://www.lilting.ch/articles/leap-year-magic-number-z3) / [EN](https://www.lilting.ch/en/articles/leap-year-magic-number-z3) |

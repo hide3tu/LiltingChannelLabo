@@ -1,0 +1,5 @@
+/runtime/node_modules/
+/home/
+/logs/
+/runs/
+__pycache__/

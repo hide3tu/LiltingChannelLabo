@@ -1,0 +1,116 @@
+[
+  {
+    "run": "qwen-repair-1",
+    "model": "Qwen-Ambassador/Qwen3.8-Flash-Next",
+    "startedAt": "2026-10-13T14:43:49.630329+09:00",
+    "wallSeconds": 76.9,
+    "peakRssMiB": 257.19,
+    "exitCode": 0,
+    "steps": 8,
+    "toolCalls": 10,
+    "inputTokens": 72814,
+    "outputTokens": 3242,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  },
+  {
+    "run": "qwen-repair-2",
+    "model": "Qwen-Ambassador/Qwen3.8-Flash-Next",
+    "startedAt": "2026-10-13T14:47:44.180766+09:00",
+    "wallSeconds": 91.853,
+    "peakRssMiB": 235.53,
+    "exitCode": 0,
+    "steps": 10,
+    "toolCalls": 12,
+    "inputTokens": 92457,
+    "outputTokens": 4273,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  },
+  {
+    "run": "qwen-repair-3",
+    "model": "Qwen-Ambassador/Qwen3.8-Flash-Next",
+    "startedAt": "2026-10-13T14:50:04.309184+09:00",
+    "wallSeconds": 67.343,
+    "peakRssMiB": 234.36,
+    "exitCode": 0,
+    "steps": 8,
+    "toolCalls": 10,
+    "inputTokens": 72152,
+    "outputTokens": 3021,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  },
+  {
+    "run": "deepseek-repair-1",
+    "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "startedAt": "2026-10-13T14:45:48.470617+09:00",
+    "wallSeconds": 48.482,
+    "peakRssMiB": 232.8,
+    "exitCode": 0,
+    "steps": 8,
+    "toolCalls": 11,
+    "inputTokens": 68690,
+    "outputTokens": 1975,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  },
+  {
+    "run": "deepseek-repair-2",
+    "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "startedAt": "2026-10-13T14:49:16.243343+09:00",
+    "wallSeconds": 47.876,
+    "peakRssMiB": 237.53,
+    "exitCode": 0,
+    "steps": 7,
+    "toolCalls": 10,
+    "inputTokens": 55854,
+    "outputTokens": 2472,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  },
+  {
+    "run": "deepseek-repair-3",
+    "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+    "startedAt": "2026-10-13T14:51:11.842900+09:00",
+    "wallSeconds": 37.268,
+    "peakRssMiB": 272.25,
+    "exitCode": 0,
+    "steps": 6,
+    "toolCalls": 10,
+    "inputTokens": 49980,
+    "outputTokens": 2653,
+    "visibleTestsPassed": 9,
+    "heldoutTestsPassed": 3,
+    "protectedFilesUnchanged": true,
+    "existingFilesChanged": [
+      "src/catalog.js"
+    ],
+    "filesAdded": []
+  }
+]
